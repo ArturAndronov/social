@@ -1,0 +1,10 @@
+.nav{
+    grid-area: n;
+    background: linear-gradient(62deg, #addbee, #e4a3db);
+  }
+.item {
+    color:white;
+  }
+.item.active {
+    color:gold;
+}
