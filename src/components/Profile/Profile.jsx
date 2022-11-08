@@ -1,27 +1,15 @@
+import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
 const Profile = () => {
     return (
         <div className={s.content}>
         <div>
-          <img src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"  />
+          <img src="https://images.ctfassets.net/hrltx12pl8hq/5KiKmVEsCQPMNrbOE6w0Ot/341c573752bf35cb969e21fcd279d3f9/hero-img_copy.jpg?fit=fill&w=800&h=300"  />
         </div>
         <div>
           ava + description
         </div>
-        <div>
-          My posts
-          <div>
-            New post
-          </div>
-          <div className={s.posts}>
-            <div className={s.item}>
-              post 1
-            </div>
-            <div className={s.item}>
-              post 2
-            </div>
-          </div>
-        </div>
+        <MyPosts/>
       </div>
     )
 }
