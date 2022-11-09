@@ -1,12 +1,12 @@
 import s from './Post.module.css';
-const Post = () => {
+const Post = (props) => {
   return (
     <div>
       <div className={s.item}>
         <img src='https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar-men-300x300.png'></img>
-        post 1
+        {props.message}
         <div>
-          <span>like</span>
+          <span>like {props.likecounts}</span>
         </div>
       </div>
     </div>
