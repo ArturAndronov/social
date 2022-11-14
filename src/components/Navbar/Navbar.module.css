@@ -1,10 +1,13 @@
 .nav{
     grid-area: n;
     background: linear-gradient(62deg, #addbee, #e4a3db);
+    padding: 20px;
   }
-.item {
+.item{
     color:white;
+    text-decoration: none;
   }
-.item.active {
-    color:gold;
+.active {
+  color: gold;
+  text-decoration: none;
 }
