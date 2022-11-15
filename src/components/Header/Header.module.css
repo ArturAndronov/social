@@ -1,8 +1,9 @@
 .header{
     grid-area: h;
-    background: linear-gradient(62deg, #e4a3db,#addbee );
+    background: hsl(214, 58%, 78%);
   }
   .header img{
+    margin-left: 35px;
     width: 60px;
   }
   
