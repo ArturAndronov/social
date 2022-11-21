@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: 2fr 10fr;
 }
+.dialogItem{
+  width: 50px;
+  margin-right: 7px;
+}
 
 .dialogsItems {
   padding: 10px;
