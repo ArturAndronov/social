@@ -1,6 +1,6 @@
 let state = {
 
-    profilePage:{
+    profilePage: {
         posts: [
             { id: 1, message: 'Hi, how are you?', likesCounts: '15' },
             { id: 2, message: 'It\'s my first post', likesCounts: '20' },
@@ -8,7 +8,7 @@ let state = {
             { id: 4, message: 'bbbbbbbbbbbbbbbbbbb', likesCounts: '266' }
         ]
     },
-    dialogsPage:{
+    dialogsPage: {
         messages: [
             { id: 1, message: 'Hi' },
             { id: 2, message: 'How are you' },
@@ -18,14 +18,24 @@ let state = {
             { id: 6, message: 'asff' }
         ],
         dialogs: [
-            { id: 1, name: 'Arthur' , img: 'https://cdn-icons-png.flaticon.com/512/74/74291.png'},
+            { id: 1, name: 'Arthur', img: 'https://cdn-icons-png.flaticon.com/512/74/74291.png' },
             { id: 2, name: 'Ivan', img: 'https://cdn-icons-png.flaticon.com/512/53/53154.png' },
             { id: 3, name: 'Evgeniy', img: 'https://cdn-icons-png.flaticon.com/512/53/53081.png' },
-            { id: 4, name: 'Alexandr', img: 'https://cdn-icons-png.flaticon.com/512/56/56990.png'},
+            { id: 4, name: 'Alexandr', img: 'https://cdn-icons-png.flaticon.com/512/56/56990.png' },
             { id: 5, name: 'Andrew', img: 'https://cdn-icons-png.flaticon.com/512/53/53092.png' },
             { id: 6, name: 'Vladimir', img: 'https://cdn-icons-png.flaticon.com/512/53/53092.png' }
         ]
     }
-    
+
 }
+
+export let addPost = (postMessage) => {
+    let newPost = {
+        id: 5,
+        message: postMessage,
+        likesCounts: 0
+    };
+    state.profilePage.posts.push(newPost);
+}
+
 export default state;
