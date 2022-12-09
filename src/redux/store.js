@@ -34,6 +34,7 @@ let store = {
             ],
             newMessageBody: ""
         },
+        sidebar:{}
 
     },
     getState() {
