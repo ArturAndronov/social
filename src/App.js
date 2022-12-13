@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
@@ -20,8 +20,8 @@ const App = (props) => {
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path='*' element={<Profile store={props.store}/>} />
-          <Route path='/dialogs' element={<Dialogs store={props.store} />} />
+          <Route path='*' element={<Profile/>} />
+          <Route path='/dialogs' element={<DialogsContainer  />} />
           <Route path='/news' element={<News />} />
           <Route path='/music' element={<Music />} />
           <Route path='/settings' element={<Settings />} />
