@@ -1,49 +1,61 @@
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET_USERS'
 
 let initialState = {
-    posts: [
-        { id: 1, message: 'Hi, how are you?', likesCounts: '15' },
-        { id: 2, message: 'It\'s my first post', likesCounts: '20' },
-        { id: 3, message: 'sagasgasgasgasgas', likesCounts: '24' },
-        { id: 4, message: 'bbbbbbbbbbbbbbbbbbb', likesCounts: '266' }
-    ],
-    newPostText: 'Новый пост'
+    users: [
+        // { id: 1, photoUrl:'https://lh5.googleusercontent.com/-3iQdpASpRAw/AAAAAAAAAAI/AAAAAAAABdg/FuFk5HBQzg8/photo.jpg?sz=250' , followed: true, fullName: 'Artur', status: 'I am a progger', location: { city: 'Rybnitca', country: 'PMR' } },
+        // { id: 2, photoUrl:'https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-03-scaled.jpeg' , followed: false, fullName: 'Daniil', status: 'I am a gamer', location: { city: 'Moskow', country: 'Russia' } },
+        // { id: 3, photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIbPjR2WaEXc563Nybz1G8j-zPLc4Imxu8devqnXFUf16HkG90NQiaoLdN2H2WdPONQKI&usqp=CAU' , followed: true, fullName: 'Andrew', status: 'I am a producer', location: { city: 'Cishinau', country: 'Moldova' } }
+    ]
 };
 
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST: {
-            let newPost = {
-                id: 5,
-                message: state.newPostText,
-                likesCounts: 0
-            };
+        case FOLLOW:
             return {
                 ...state,
-                posts: [...state.posts, newPost],
-                newPostText: ''
-            };
-        }
-        case UPDATE_NEW_POST_TEXT:{
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return { ...u, followed: true }
+                    }
+                    return u;
+                })
+            }
+        case UNFOLLOW:
             return {
                 ...state,
-                newPostText: action.newText
-            };
-
+                users: state.users.map(u => {
+                    if (u.id === action.userId) {
+                        return { ...u, followed: false }
+                    }
+                    return u;
+                })
+            }
+        case SET_USERS: {
+            return {
+                ...state,
+                users: [ ...state.users, ...action.users ]
+            }
         }
         default:
             return state;
     }
 
 }
-export const addPostActionCreator = () => ({
-    type: ADD_POST
+export const followAC = (userId) => ({
+    type: FOLLOW,
+    userId
 })
 
-export const UpdateNewPostTextActionCreator = (text) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
+export const unfollowAC = (userId) => ({
+    type: UNFOLLOW,
+    userId
+})
+
+export const setUsersAC = (users) => ({
+    type: SET_USERS,
+    users
 })
 
 export default usersReducer;

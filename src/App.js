@@ -11,7 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
-import Users from './components/Users/Users';
+import UsersContainer from './components/Users/UsersContainer';
 
 const App = (props) => {
   return (
@@ -21,7 +21,7 @@ const App = (props) => {
       <div className='app-wrapper-content'>
         <Routes>
           <Route path='*' element={<Profile/>} />
-          <Route path='/users' element={<Users/>} />
+          <Route path='/users' element={<UsersContainer/>} />
           <Route path='/dialogs' element={<DialogsContainer  />} />
           <Route path='/news' element={<News />} />
           <Route path='/music' element={<Music />} />
