@@ -26,6 +26,10 @@ const Navbar = () => {
                 <NavLink to="/dialogs" className = { navData => navData.isActive ? s.active : s.item }>Messages</NavLink>
             </div>
             <div>
+                {/* <img src='https://cdn-icons.flaticon.com/svg/3917/3917567.svg?token=exp=1668514586~hmac=6facee7128d8ec25e12b63fce7e35444' /> */}
+                <NavLink to="/users" className = { navData => navData.isActive ? s.active : s.item }>Users</NavLink>
+            </div>
+            <div>
                 {/* <img src='https://www.flaticon.com/svg/vstatic/svg/3914/3914149.svg?token=exp=1668514767~hmac=7771cf61cc577f36e40b7c1b05546aba' /> */}
                 <NavLink to="/news" className = { navData => navData.isActive ? s.active : s.item }>News</NavLink>
             </div>
