@@ -1,13 +1,15 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE='SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT='SET_TOTAL_USERS_COUNT';
+
 
 let initialState = {
-    users: [
-        // { id: 1, photoUrl:'https://lh5.googleusercontent.com/-3iQdpASpRAw/AAAAAAAAAAI/AAAAAAAABdg/FuFk5HBQzg8/photo.jpg?sz=250' , followed: true, fullName: 'Artur', status: 'I am a progger', location: { city: 'Rybnitca', country: 'PMR' } },
-        // { id: 2, photoUrl:'https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-03-scaled.jpeg' , followed: false, fullName: 'Daniil', status: 'I am a gamer', location: { city: 'Moskow', country: 'Russia' } },
-        // { id: 3, photoUrl:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIbPjR2WaEXc563Nybz1G8j-zPLc4Imxu8devqnXFUf16HkG90NQiaoLdN2H2WdPONQKI&usqp=CAU' , followed: true, fullName: 'Andrew', status: 'I am a producer', location: { city: 'Cishinau', country: 'Moldova' } }
-    ]
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 2
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -38,6 +40,18 @@ const usersReducer = (state = initialState, action) => {
                 users: action.users 
             }
         }
+        case SET_CURRENT_PAGE: {
+            return  { 
+                ...state, 
+                currentPage: action.currentPage
+            }
+        }
+        case SET_TOTAL_USERS_COUNT: {
+            return  { 
+                ...state, 
+                totalUsersCount: action.count
+            }
+        }
         default:
             return state;
     }
@@ -57,5 +71,16 @@ export const setUsersAC = (users) => ({
     type: SET_USERS,
     users
 })
+
+export const setCurrentPageAC = (currentPage) => ({
+    type: SET_CURRENT_PAGE,
+    currentPage
+})
+
+export const setUsersTotalCountAC = (count) => ({
+    type: SET_TOTAL_USERS_COUNT,
+    count
+})
+
 
 export default usersReducer;
