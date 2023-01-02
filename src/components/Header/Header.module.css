@@ -1,9 +1,17 @@
-.header{
-    grid-area: h;
-    background: hsl(214, 58%, 78%);
-  }
-  .header img{
-    margin-left: 35px;
-    width: 60px;
-  }
-  
+.header {
+  grid-area: h;
+  background: hsl(214, 58%, 78%);
+}
+
+.header img {
+  margin-left: 35px;
+  width: 60px;
+}
+
+.loginBlock {
+  float: right;
+}
+.loginBlock a {
+  color:white;
+  text-decoration: none;
+}
