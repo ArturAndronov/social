@@ -8,7 +8,7 @@ const Header = (props) => {
             <img src='https://cdn-icons-png.flaticon.com/512/5969/5969833.png' />
 
             <div className={s.loginBlock}>
-                {props.isAuth? <span>Auth</span>
+                {props.isAuth? props.login
                  : <NavLink to={'/login'}>Login</NavLink> }
             </div>
         </header>
