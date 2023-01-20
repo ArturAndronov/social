@@ -1,4 +1,3 @@
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
 let initialState = {
@@ -17,22 +16,15 @@ let initialState = {
         { id: 4, name: 'Alexandr', img: 'https://cdn-icons-png.flaticon.com/512/56/56990.png' },
         { id: 5, name: 'Andrew', img: 'https://cdn-icons-png.flaticon.com/512/53/53092.png' },
         { id: 6, name: 'Vladimir', img: 'https://cdn-icons-png.flaticon.com/512/53/53092.png' }
-    ],
-    newMessageBody: ""
+    ]
 };
 
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY: 
-            return{
-                ...state,
-                newMessageBody: action.body
-            };
         case SEND_MESSAGE: 
-            let body = state.newMessageBody;
+            let body = action.newMessageBody;
             return{
                 ...state,
-                newMessageBody: '',
                 messages: [...state.messages, { id: 7, message: body }]
             };
         default:
@@ -41,13 +33,9 @@ const dialogsReducer = (state = initialState, action) => {
 
 }
 
-export const sendMessageCreator = () => ({
-    type: SEND_MESSAGE
-})
-
-export const UpdateNewMessageBodyCreator = (body) => ({
-    type: UPDATE_NEW_MESSAGE_BODY,
-    body: body
+export const sendMessageCreator = (newMessageBody) => ({
+    type: SEND_MESSAGE,
+    newMessageBody
 })
 
 
