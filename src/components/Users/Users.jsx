@@ -1,7 +1,7 @@
 import React from "react";
 import styles from './users.module.css'
 import userPhoto from '../../assets/images/user.png';
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 
 let Users = (props) => {
