@@ -8,7 +8,6 @@ import Post from './Post/Post';
 const maxLength10 = maxLengthCreator(10)
 
 const MyPosts = React.memo(props => {
-    console.log("render")
     let postsElement =
       props.posts.map(p => <Post message={p.message} likesCounts={p.likesCounts} />)
 
