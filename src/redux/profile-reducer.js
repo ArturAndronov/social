@@ -29,13 +29,13 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: ''
             };
         }
-        case SET_USER_PROFILE:{
+        case SET_USER_PROFILE: {
             return {
                 ...state,
                 profile: action.profile
             };
         }
-        case SET_STATUS:{
+        case SET_STATUS: {
             return {
                 ...state,
                 status: action.status
@@ -60,22 +60,19 @@ export const setStatus = (status) => ({
     type: SET_STATUS,
     status
 })
-export const getUsersProfile = (userId) => (dispatch) => {
-    usersAPI.getProfile(userId).then(response => {
-        dispatch(setUsersProfile(response.data));
-    });
+export const getUsersProfile = (userId) => async (dispatch) => {
+    let response = await usersAPI.getProfile(userId);
+    dispatch(setUsersProfile(response.data));
 }
-export const getStatus = (userId) => (dispatch) => {
-    profileAPI.getStatus(userId).then(response => {
-        dispatch(setStatus(response.data));
-    });
+export const getStatus = (userId) => async (dispatch) => {
+    let response = await profileAPI.getStatus(userId);
+    dispatch(setStatus(response.data));
 }
-export const updateStatus = (status) => (dispatch) => {
-    profileAPI.updateStatus(status).then(response => {
-        if(response.data.resultCode === 0){
-            dispatch(setStatus(status));
-        }   
-    });
+export const updateStatus = (status) => async (dispatch) => {
+    let response = await profileAPI.updateStatus(status);
+    if (response.data.resultCode === 0) {
+        dispatch(setStatus(status));
+    }
 }
 
 
