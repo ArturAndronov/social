@@ -33,9 +33,7 @@ class App extends Component {
 
   render() {
 
-    if (!this.props.initialized) {
-      return <Preloader />
-    }
+    
     return (
 
       <div className='app-wrapper'>
