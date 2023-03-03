@@ -6,6 +6,7 @@ import {
   useLocation,
   useNavigate,
   useParams,
+  Navigate,
 } from "react-router-dom";
 import './App.css';
 
@@ -23,7 +24,7 @@ import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader';
 
 //import DialogsContainer from './components/Dialogs/DialogsContainer';
-const DialogsContainer = React.lazy( () => import('./components/Dialogs/DialogsContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 class App extends Component {
 
@@ -33,24 +34,25 @@ class App extends Component {
 
   render() {
 
- 
+
     return (
 
       <div className='app-wrapper'>
         <HeaderContainer />
         <Navbar />
         <div className='app-wrapper-content'>
-        <Suspense fallback={<div>LOADING....</div>}>
-          <Routes>
-            <Route path='/profile' element={<ProfileContainer />} />
-            <Route path='/profile/:userId' element={<ProfileContainer />} />
-            <Route path='/users' element={<UsersContainer />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/dialogs' element={<DialogsContainer />} />
-            <Route path='/news' element={<News />} />
-            <Route path='/music' element={<Music />} />
-            <Route path='/settings' element={<Settings />} />
-          </Routes>
+          <Suspense fallback={<div>LOADING....</div>}>
+            <Routes>
+              <Route path='/profile/:userId' element={<ProfileContainer />} />
+              <Route path="/" element={<Navigate to="/profile" />} />
+              <Route path='/profile' element={<ProfileContainer />} />
+              <Route path='/users' element={<UsersContainer />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/dialogs' element={<DialogsContainer />} />
+              <Route path='/news' element={<News />} />
+              <Route path='/music' element={<Music />} />
+              <Route path='/settings' element={<Settings />} />
+            </Routes>
           </Suspense>
         </div>
       </div>
