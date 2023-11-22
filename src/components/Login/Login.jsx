@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { reduxForm } from "redux-form";
 import { required } from '../../utils/validators/validators';
 import { createField, Input } from '../common/FormsControls/FormsControls';
-import { login } from '../../redux/auth-reducer';
+import { login } from '../../redux/auth-reducer.ts';
 import { Navigate } from 'react-router-dom';
 import style from "../common/FormsControls/FormsControls.module.css"
 
@@ -15,7 +15,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
             {createField(null, "rememberMe", [], Input, {type: "checkbox"}, "remember me")}
 
             {/* если присутствует каптча , то покажеттся картинка и поле для ввода */}
-            { captchaUrl && <img src={captchaUrl}/>} 
+            { captchaUrl && <img src={captchaUrl} alt='captcha'/>} 
             { captchaUrl && createField("Symbols from image", "captcha", [required], Input, {}) }   
 
             {error && <div className={style.formSummaryError}>

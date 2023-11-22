@@ -1,10 +1,10 @@
-let initialState = {
+// let initialState = {
 
-};
+// };
+// type InitialStateType = typeof initialState
+// const sidebarReducer = (state = initialState, action: any): InitialStateType => {
 
-const sidebarReducer = (state = initialState, action) => {
+//     return state;
+// }
 
-    return state;
-}
-
-export default sidebarReducer;
+// export default sidebarReducer;

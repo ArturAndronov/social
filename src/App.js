@@ -18,10 +18,10 @@ import News from './components/News/News';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
-import { initializeApp } from './redux/app-reducer';
+import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Preloader from './components/common/Preloader/Preloader';
+//import Preloader from './components/common/Preloader/Preloader';
 
 //import DialogsContainer from './components/Dialogs/DialogsContainer';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

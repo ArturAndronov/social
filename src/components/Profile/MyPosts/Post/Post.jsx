@@ -5,7 +5,7 @@ const Post = (props) => {
   return (
     <div>
       <div className={s.item}>
-        <img src='https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar-men-300x300.png'></img>
+        <img src='https://muratselek.com.tr/wp-content/uploads/2019/01/yorum-icon-avatar-men-300x300.png' alt='Personal post'></img>
         {props.message}
         <div>
           <span>like {props.likesCounts}</span>

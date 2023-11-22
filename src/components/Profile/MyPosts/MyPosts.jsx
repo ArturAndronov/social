@@ -11,7 +11,7 @@ const MyPosts = React.memo(props => {
     let postsElement =
       props.posts.map(p => <Post key={p.id} message={p.message} likesCounts={p.likesCounts} />)
 
-    let newPostElement = React.createRef();
+    // let newPostElement = React.createRef();
 
     let onAddPost = (values) => {
       props.addPost(values.newPostText);

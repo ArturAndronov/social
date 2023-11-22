@@ -1,7 +1,7 @@
 import React from 'react'
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { getUsersProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../redux/profile-reducer';
+import { getUsersProfile, getStatus, updateStatus, savePhoto, saveProfile } from '../../redux/profile-reducer.ts';
 import {
   useLocation,
   useNavigate,
@@ -27,7 +27,7 @@ class ProfileContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if(this.props.router.params.userId != prevProps.router.params.userId){
+    if(this.props.router.params.userId !== prevProps.router.params.userId){
       this.refreshProfile();
     }
     
