@@ -17,7 +17,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from './components/Settings/Settings';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersContainer.tsx';
 import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -46,7 +46,7 @@ class App extends Component {
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path="/" element={<Navigate to="/profile" />} />
               <Route path='/profile' element={<ProfileContainer />} />
-              <Route path='/users' element={<UsersContainer />} />
+              <Route path='/users' element={<UsersContainer pageTitle='Social'/>} />
               <Route path='/login' element={<Login />} />
               <Route path='/dialogs' element={<DialogsContainer />} />
               <Route path='/news' element={<News />} />

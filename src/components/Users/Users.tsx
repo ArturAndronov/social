@@ -1,14 +1,25 @@
 import React from "react";
-import Paginator from "../common/Paginator/Paginator";
-import User from "./User";
+import Paginator from "../common/Paginator/Paginator.tsx";
+import User from "./User.jsx";
 import { useState } from 'react';
 
 import { ListItemButton, ListItemText, TextField } from '@mui/material';
 import { Container } from '@mui/system';
+import { UserType } from "../../types/types.ts";
 
+type PropsType = {
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    users: Array<UserType>
+    followingInProgress: Array<number>
+    unfollow: (userId: number) => void
+    follow: (userId: number) => void
+}
 
-let Users = ({ currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props }) => {
-
+let Users: React.FC<PropsType> = ({ currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props }) => {
+    console.log(users)
     const [value, setValue] = useState('')
 
     const filteredUsers = users.filter(u => {
@@ -17,7 +28,7 @@ let Users = ({ currentPage, onPageChanged, totalUsersCount, pageSize, users, ...
 
     const [isOpen, setIsOpen] = useState(true)
 
-    const itemClickHandler = (e) => {
+    const itemClickHandler = (e:any) => {
         setValue(e.target.textContent)
         setIsOpen(!isOpen)
     }
