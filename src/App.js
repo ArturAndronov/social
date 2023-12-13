@@ -11,7 +11,7 @@ import {
 import './App.css';
 
 import HeaderContainer from './components/Header/HeaderContainer';
-import Login from './components/Login/Login';
+import Login from './components/Login/Login.tsx';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
