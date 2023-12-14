@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import profileReducer from "./profile-reducer.ts";
 import dialogsReducer from "./dialogs-reducer.ts";
 // import sidebarReducer from "./sidebar-reducer.js";
@@ -18,13 +18,16 @@ let rootReducer = combineReducers({
     app: appReducer
 });
 
-type RootReducerType = typeof rootReducer; 
+type RootReducerType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducerType>
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesTypes<T>>
 
 //@ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers( applyMiddleware(thunkMiddleware)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 //let store = createStore(reducers, applyMiddleware(thunkMiddleware));
 //window.__store__ = store;
