@@ -10,29 +10,42 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import HeaderContainer from './components/Header/HeaderContainer';
+import HeaderContainer from './components/Header/HeaderContainer.jsx';
 import Login from './components/Login/Login.tsx';
-import Music from './components/Music/Music';
-import Navbar from './components/Navbar/Navbar';
-import News from './components/News/News';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import Settings from './components/Settings/Settings';
+import Music from './components/Music/Music.jsx';
+import Navbar from './components/Navbar/Navbar.jsx';
+import News from './components/News/News.jsx';
+import ProfileContainer from './components/Profile/ProfileContainer.jsx';
+import Settings from './components/Settings/Settings.jsx';
 import UsersContainer from './components/Users/UsersContainer.tsx';
 import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-//import Preloader from './components/common/Preloader/Preloader';
+import Preloader from './components/common/Preloader/Preloader.js';
+import { AppStateType } from './redux/redux-store.ts';
+import { withSuspens } from './hoc/withSuspense.tsx';
 
 //import DialogsContainer from './components/Dialogs/DialogsContainer';
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'));
 
-class App extends Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initializeApp: () => void
+}
+
+const SuspendedDialogs = withSuspens(DialogsContainer)
+const SuspendedProfile = withSuspens(ProfileContainer)
+
+class App extends Component<MapPropsType & DispatchPropsType> {
 
   componentDidMount() {
     this.props.initializeApp();
   }
 
   render() {
+    if(!this.props.initialized){
+      return <Preloader />
+    }
 
 
     return (
@@ -45,10 +58,10 @@ class App extends Component {
             <Routes>
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path="/" element={<Navigate to="/profile" />} />
-              <Route path='/profile' element={<ProfileContainer />} />
+              <Route path='/profile' element={<SuspendedProfile />} />
               <Route path='/users' element={<UsersContainer pageTitle='Social'/>} />
               <Route path='/login' element={<Login />} />
-              <Route path='/dialogs' element={<DialogsContainer />} />
+              <Route path='/dialogs' element={<SuspendedDialogs />} />
               <Route path='/news' element={<News />} />
               <Route path='/music' element={<Music />} />
               <Route path='/settings' element={<Settings />} />
@@ -61,7 +74,7 @@ class App extends Component {
   };
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized
 })
 

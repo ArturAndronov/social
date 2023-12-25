@@ -8,7 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect.tsx';
 
 class ProfileContainer extends React.Component {
 
