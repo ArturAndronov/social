@@ -10,18 +10,18 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import HeaderContainer from './components/Header/HeaderContainer.jsx';
+import HeaderContainer from './components/Header/HeaderContainer.tsx';
 import Login from './components/Login/Login.tsx';
 import Music from './components/Music/Music.jsx';
-import Navbar from './components/Navbar/Navbar.jsx';
+import Navbar from './components/Navbar/Navbar.tsx';
 import News from './components/News/News.jsx';
-import ProfileContainer from './components/Profile/ProfileContainer.jsx';
+import ProfileContainer from './components/Profile/ProfileContainer.tsx';
 import Settings from './components/Settings/Settings.jsx';
 import UsersContainer from './components/Users/UsersContainer.tsx';
 import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Preloader from './components/common/Preloader/Preloader.js';
+import Preloader from './components/common/Preloader/Preloader.tsx';
 import { AppStateType } from './redux/redux-store.ts';
 import { withSuspens } from './hoc/withSuspense.tsx';
 

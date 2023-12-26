@@ -44,7 +44,7 @@ export function createField<FormKeysType extends string> (
   name: FormKeysType,
   validators: Array<FieldValidatorType>,
   component: React.FC<WrappedFieldProps>,
-  props: Record<string, any> = {},  // Corrected the props parameter
+  props: {},
   text = ""
 ) {
   return(
@@ -60,3 +60,5 @@ export function createField<FormKeysType extends string> (
   </div>
   )
 };
+
+export type GetStringKeys<T> = Extract<keyof T, string>
