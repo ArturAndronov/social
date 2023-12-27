@@ -1,4 +1,4 @@
-import reportWebVitals from './reportWebVitals';
+import reportWebVitals from './reportWebVitals.js';
 import store from './redux/redux-store.ts';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
