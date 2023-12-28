@@ -1,79 +1,65 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Paginator from "../common/Paginator/Paginator.tsx";
 import User from "./User.tsx";
-import { useState } from 'react';
 
-import { ListItemButton, ListItemText, TextField } from '@mui/material';
-import { Container } from '@mui/system';
-import { UserType } from "../../types/types.ts";
+import { FilterType, requestUsers } from '../../redux/users-reducer.ts'
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from "../../redux/users-selectors.ts";
+import { UsersSearchForm } from "./UsersSearchForm.tsx";
 
 type PropsType = {
-    totalUsersCount: number
-    pageSize: number
-    currentPage: number
-    onPageChanged: (pageNumber: number) => void
-    users: Array<UserType>
-    followingInProgress: Array<number>
-    unfollow: (userId: number) => void
-    follow: (userId: number) => void
 }
 
-let Users: React.FC<PropsType> = ({ currentPage, onPageChanged, totalUsersCount, pageSize, users, ...props }) => {
-    console.log(users)
-    const [value, setValue] = useState('')
+export const Users: React.FC<PropsType> = (props) => {
 
-    const filteredUsers = users.filter(u => {
-        return u.name.toLowerCase().includes(value.toLowerCase())
-    })
 
-    const [isOpen, setIsOpen] = useState(true)
 
-    const itemClickHandler = (e:any) => {
-        setValue(e.target.textContent)
-        setIsOpen(!isOpen)
+    const users = useSelector(getUsers)
+    const totalUsersCount = useSelector(getTotalUsersCount)
+    const currentPage = useSelector(getCurrentPage)
+    const pageSize = useSelector(getPageSize)
+    const filter = useSelector(getUsersFilter)
+    const followingInProgress = useSelector(getFollowingInProgress)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(requestUsers(currentPage, pageSize, filter))
+    }, [])
+
+    const onPageChanged = (pageNumber: number) => {
+        dispatch(requestUsers(pageNumber, pageSize, filter))
     }
 
-    const inputClickHandler = () => {
-        setIsOpen(true)
+    const onFilterChanged = (filter: FilterType) => {
+        dispatch(requestUsers(1, pageSize, filter))
     }
+    const follow = (userId: number) => {
+        dispatch(follow(userId))
+    }
+    const unfollow = (userId: number) => {
+        dispatch(unfollow(userId))
+    }
+
 
     return <div>
+
+        <UsersSearchForm onFilterChanged={onFilterChanged} />
 
         <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
             totalItemsCount={totalUsersCount} pageSize={pageSize} />
 
-        <Container sx={{ mt: "1rem" }}>
-            <TextField
-                label="Search"
-                variant="outlined"
-                fullWidth
-                value={value}
-                onChange={(event) => setValue(event.target.value)}
-                onClick={inputClickHandler}
-                sx={{
-                    mb: "1.5rem"
-                }}
-            />
-            {
-                value && isOpen
-                    ? filteredUsers.map((u) => <ListItemButton onClick={itemClickHandler}>
-                        <ListItemText primary={u.name} />
-                    </ListItemButton>)
-                    : null
-            }
-        </Container>
+
         <div>
             {
-                filteredUsers.map(u => <User user={u}
-                    followingInProgress={props.followingInProgress}
+                users.map(u => <User user={u}
+                    followingInProgress={followingInProgress}
                     key={u.id}
-                    unfollow={props.unfollow}
-                    follow={props.follow}
+                    unfollow={unfollow}
+                    follow={follow}
                 />
                 )
             }
         </div>
     </div>
 }
-
-export default Users;

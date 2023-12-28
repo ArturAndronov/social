@@ -14,7 +14,7 @@ console.log(s)
 // let classes = c1 + " " + c2;
 // let classesNew= `${s.item} ${s.active}`;
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     return (
         <nav className={s.nav}>
             <div>

@@ -17,13 +17,13 @@ import Navbar from './components/Navbar/Navbar.tsx';
 import News from './components/News/News.jsx';
 import ProfileContainer from './components/Profile/ProfileContainer.tsx';
 import Settings from './components/Settings/Settings.jsx';
-import UsersContainer from './components/Users/UsersContainer.tsx';
 import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader.tsx';
 import { AppStateType } from './redux/redux-store.ts';
 import { withSuspens } from './hoc/withSuspense.tsx';
+import { UsersPage } from './components/Users/UsersContainer.tsx';
 
 //import DialogsContainer from './components/Dialogs/DialogsContainer';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'));
@@ -59,7 +59,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
               <Route path='/profile/:userId' element={<ProfileContainer />} />
               <Route path="/" element={<Navigate to="/profile" />} />
               <Route path='/profile' element={<SuspendedProfile />} />
-              <Route path='/users' element={<UsersContainer pageTitle='Social'/>} />
+              <Route path='/users' element={<UsersPage pageTitle='Social'/>} />
               <Route path='/login' element={<Login />} />
               <Route path='/dialogs' element={<SuspendedDialogs />} />
               <Route path='/news' element={<News />} />
