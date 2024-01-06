@@ -1,6 +1,10 @@
 .descriptionBlock{
     padding:10px;
 }
+.profileImage{
+    display: flex;
+    flex-direction: column;
+}
 .mainPhoto{
     max-width: 200px;
 }

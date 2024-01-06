@@ -40,10 +40,12 @@ const ProfileInfo: React.FC<PropsType> = ({ profile, status, updateStatus, isOwn
   return (
     <div>
       <div className={s.descriptionBlock}>
-        <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt='User'/>
-        {isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
+        <div className={s.profileImage}>
+          <img src={profile.photos.large || userPhoto} className={s.mainPhoto} alt='User' />
+          {isOwner && <input type={"file"} onChange={onMainPhotoSelected} />}
+        </div>
         {editMode
-          ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit}/>
+          ? <ProfileDataForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
           : <ProfileData goToEditMode={() => { setEditMode(true) }} profile={profile} isOwner={isOwner} />}
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
       </div>
@@ -57,37 +59,37 @@ type ProfileDataPropsType = {
   goToEditMode: () => void
 }
 
-const ProfileData:React.FC<ProfileDataPropsType> = ({profile, isOwner, goToEditMode}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({ profile, isOwner, goToEditMode }) => {
   return <div>
-      {isOwner && <div><button onClick={goToEditMode}>edit</button></div>}
+    {isOwner && <div><button onClick={goToEditMode}>edit</button></div>}
+    <div>
+      <b>Full name</b>: {profile.fullName}
+    </div>
+    <div>
+      <b>Looking for a job</b>: {profile.LookingForAJob ? "yes" : "no"}
+    </div>
+    {profile.LookingForAJob &&
       <div>
-          <b>Full name</b>: {profile.fullName}
+        <b>My professional skills</b>: {profile.LookingForAJobDescriptions}
       </div>
-      <div>
-          <b>Looking for a job</b>: {profile.LookingForAJob ? "yes" : "no"}
-      </div>
-      {profile.LookingForAJob &&
-      <div>
-          <b>My professional skills</b>: {profile.LookingForAJobDescriptions}
-      </div>
-      }
+    }
 
-      <div>
-          <b>About me</b>: {profile.aboutMe}
-      </div>
-      <div>
-          <b>Contacts</b>: {Object.keys(profile.contacts).map((key) => {
-          return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]}/>
+    <div>
+      <b>About me</b>: {profile.aboutMe}
+    </div>
+    <div>
+      <b>Contacts</b>: {Object.keys(profile.contacts).map((key) => {
+        return <Contact key={key} contactTitle={key} contactValue={profile.contacts[key as keyof ContactsType]} />
       })}
-      </div>
+    </div>
   </div>
 }
 
-type ContactsPropsType ={
+type ContactsPropsType = {
   contactTitle: string
   contactValue: string
 }
-const Contact:React.FC<ContactsPropsType> = ({contactTitle, contactValue}) => {
+const Contact: React.FC<ContactsPropsType> = ({ contactTitle, contactValue }) => {
   return <div className={s.contact}><b>{contactTitle}</b>: {contactValue}</div>
 }
 export default ProfileInfo;

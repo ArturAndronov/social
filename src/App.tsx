@@ -17,7 +17,6 @@ import Login from './components/Login/Login.tsx';
 import Music from './components/Music/Music.jsx';
 import Navbar from './components/Navbar/Navbar.tsx';
 import News from './components/News/News.jsx';
-import ProfileContainer from './components/Profile/ProfileContainer.tsx';
 import Settings from './components/Settings/Settings.jsx';
 import { initializeApp } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
@@ -27,7 +26,7 @@ import { AppStateType } from './redux/redux-store.ts';
 import { withSuspens } from './hoc/withSuspense.tsx';
 import { UsersPage } from './components/Users/UsersContainer.tsx';
 
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { TeamOutlined, NotificationOutlined, UserOutlined, SettingOutlined, CustomerServiceOutlined } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Header } from './components/Header/Header.tsx';
 const { Content, Footer, Sider } = Layout;
@@ -35,6 +34,8 @@ const { SubMenu } = Menu
 
 //import DialogsContainer from './components/Dialogs/DialogsContainer';
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'));
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer.tsx'));
+const ChatPage = React.lazy(() => import('./pages/chat/ChatPage.tsx'));
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
 type DispatchPropsType = {
@@ -43,6 +44,7 @@ type DispatchPropsType = {
 
 const SuspendedDialogs = withSuspens(DialogsContainer)
 const SuspendedProfile = withSuspens(ProfileContainer)
+const SuspendedChat = withSuspens(ChatPage)
 
 class App extends Component<MapPropsType & DispatchPropsType> {
 
@@ -56,7 +58,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
     }
     return (
       <Layout>
-        <Header/>
+        <Header />
         <Content style={{ padding: '0 50px' }}>
           <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -74,21 +76,13 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
                   <Menu.Item key="1"> <Link to="/profile">Profile</Link></Menu.Item>
                   <Menu.Item key="2"> <Link to="/dialogs">Messages</Link></Menu.Item>
-                  <Menu.Item key="3">option3</Menu.Item>
-                  <Menu.Item key="4">option4</Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub2" icon={<LaptopOutlined />} title="Users">
-                  <Menu.Item key="5"><Link to="/Users">Users</Link></Menu.Item>
-                  <Menu.Item key="6">option6</Menu.Item>
-                  <Menu.Item key="7">option7</Menu.Item>
-                  <Menu.Item key="8">option8</Menu.Item>
+                <SubMenu key="sub2" icon={<TeamOutlined />} title="Users">
+                  <Menu.Item key="3"><Link to="/Users">Users</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-                  <Menu.Item key="9">option9</Menu.Item>
-                  <Menu.Item key="10">option10</Menu.Item>
-                  <Menu.Item key="11">option11</Menu.Item>
-                  <Menu.Item key="12">option12</Menu.Item>
-                </SubMenu>
+                <Menu.Item icon={<NotificationOutlined />} key="4"><Link to="/chat">Chat</Link></Menu.Item>
+                <Menu.Item key="5" icon={<CustomerServiceOutlined />}><Link to="/music">Music</Link></Menu.Item>
+                <Menu.Item key="6" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item>
               </Menu>
             </Sider>
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
@@ -99,6 +93,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Route path='/profile' element={<SuspendedProfile />} />
                   <Route path='/users' element={<UsersPage pageTitle='Social' />} />
                   <Route path='/login' element={<Login />} />
+                  <Route path='/chat' element={<SuspendedChat/>} />
                   <Route path='/dialogs' element={<SuspendedDialogs />} />
                   <Route path='/news' element={<News />} />
                   <Route path='/music' element={<Music />} />
