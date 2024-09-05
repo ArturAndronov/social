@@ -2,17 +2,14 @@ import React, { useEffect } from "react";
 import Paginator from "../common/Paginator/Paginator.tsx";
 import User from "./User.tsx";
 
-import { FilterType, requestUsers } from '../../redux/users-reducer.ts'
+import { FilterType, requestUsers, follow as followUser, unfollow as unfollowUser } from '../../redux/users-reducer.ts';
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from "../../redux/users-selectors.ts";
 import { UsersSearchForm } from "./UsersSearchForm.tsx";
 
-type PropsType = {
-}
+type PropsType = {}
 
 export const Users: React.FC<PropsType> = (props) => {
-
-
 
     const users = useSelector(getUsers)
     const totalUsersCount = useSelector(getTotalUsersCount)
@@ -34,32 +31,34 @@ export const Users: React.FC<PropsType> = (props) => {
     const onFilterChanged = (filter: FilterType) => {
         dispatch(requestUsers(1, pageSize, filter))
     }
-    const follow = (userId: number) => {
-        dispatch(follow(userId))
+
+    // Переименовал функции `follow` и `unfollow` на `handleFollow` и `handleUnfollow`
+    const handleFollow = (userId: number) => {
+        dispatch(followUser(userId))
     }
-    const unfollow = (userId: number) => {
-        dispatch(unfollow(userId))
+
+    const handleUnfollow = (userId: number) => {
+        dispatch(unfollowUser(userId))
     }
 
-
-    return <div>
-
-        <UsersSearchForm onFilterChanged={onFilterChanged} />
-
-        <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-            totalItemsCount={totalUsersCount} pageSize={pageSize} />
-
-
+    return (
         <div>
-            {
-                users.map(u => <User user={u}
-                    followingInProgress={followingInProgress}
-                    key={u.id}
-                    unfollow={unfollow}
-                    follow={follow}
-                />
-                )
-            }
+            <UsersSearchForm onFilterChanged={onFilterChanged} />
+
+            <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
+                totalItemsCount={totalUsersCount} pageSize={pageSize} />
+
+            <div>
+                {users.map(u => (
+                    <User 
+                        user={u}
+                        followingInProgress={followingInProgress}
+                        key={u.id}
+                        unfollow={handleUnfollow}  // Используем `handleUnfollow`
+                        follow={handleFollow}      // Используем `handleFollow`
+                    />
+                ))}
+            </div>
         </div>
-    </div>
+    )
 }

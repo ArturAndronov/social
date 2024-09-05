@@ -152,9 +152,11 @@ const _followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: num
 
 export const follow = (userId: number): ThunkType => {
     return async (dispatch) => {
-        await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess)
+        console.log('Follow function called for userId:', userId);
+        await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess);
     }
 }
+
 
 export const unfollow = (userId: number): ThunkType => {
     return async (dispatch) => {
