@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { sendMessage, startMessagesListening, stopMessagesListening } from "../../redux/chat-reducer.ts"
 import { useDispatch, useSelector } from "react-redux";
 import { AppStateType } from "../../redux/redux-store";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect.tsx";
 
 export type ChatMessageType = {
     message: string
@@ -78,4 +79,4 @@ const AddMessageForm: React.FC<{ }> = ({ }) => {
     </div>
 }
 
-export default ChatPage;
+export default withAuthRedirect(ChatPage);

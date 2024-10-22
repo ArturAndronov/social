@@ -57,15 +57,10 @@ class App extends Component<MapPropsType & DispatchPropsType> {
       return <Preloader />
     }
     return (
-      <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
         <Header />
-        <Content style={{ padding: '0 50px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
-            <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
-          <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+        <Content style={{ padding: '0 50px' , height: '100%'}}>
+          <Layout className="site-layout-background" style={{ padding: '24px 0'}}>
             <Sider className="site-layout-background" width={200}>
               <Menu
                 mode="inline"
@@ -77,9 +72,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                   <Menu.Item key="1"> <Link to="/profile">Profile</Link></Menu.Item>
                   <Menu.Item key="2"> <Link to="/dialogs">Messages</Link></Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub2" icon={<TeamOutlined />} title="Users">
-                  <Menu.Item key="3"><Link to="/Users">Users</Link></Menu.Item>
-                </SubMenu>
+                <Menu.Item key="3" icon={<TeamOutlined />}><Link to="/Users">Users</Link></Menu.Item>
                 <Menu.Item icon={<NotificationOutlined />} key="4"><Link to="/chat">Chat</Link></Menu.Item>
                 <Menu.Item key="5" icon={<CustomerServiceOutlined />}><Link to="/music">Music</Link></Menu.Item>
                 <Menu.Item key="6" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item>
@@ -104,7 +97,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Social Network ©2024 Created by Artur A.S.</Footer>
+        {/* <Footer style={{ textAlign: 'center' }}>Social Network ©2024 Created by Artur A.S.</Footer> */}
       </Layout>
 
 

@@ -15,6 +15,7 @@ export type MapPropsType = {
 export const Header: React.FC<MapPropsType> = (props) => {
     const isAuth = useSelector(selectIsAuth)
     const login = useSelector(selectCurrentUserLogin)
+    const profile = useSelector((state: any) => state.profilePage.profile); // Получаем профиль из state
 
     const dispatch = useDispatch()
 
@@ -33,9 +34,27 @@ export const Header: React.FC<MapPropsType> = (props) => {
                     </Menu>
                 </Col>
                 {isAuth
-                    ? <Col span={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                        <div style={{ marginRight: '10px' }}>
-                            <Avatar alt={login || ''} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                    ? <Col span={4} style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', height: '65px' }}>
+                        <div style={{ display: 'flex', marginRight: '5px' }}>
+                        {profile?.photos?.large 
+                                ? <img 
+                                    src={profile.photos.large} 
+                                    className={s.mainPhoto} 
+                                    alt='User' 
+                                    style={{ 
+                                        width: '60px', 
+                                        height: '60px', 
+                                        borderRadius: '50%'  // Сделать фото круглым 
+                                    }}
+                                  />
+                                : <Avatar 
+                                    alt={login || ''} 
+                                    style={{ backgroundColor: '#87d068' }} 
+                                    icon={<UserOutlined />} 
+                                    shape="circle" // Сделать аватар круглым
+                                    size={60} // Задать размер 15x15
+                                  />
+                            }
                         </div>
                         <Button onClick={logoutCallback}>Log out</Button>
                     </Col>
