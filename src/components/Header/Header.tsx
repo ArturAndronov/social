@@ -58,9 +58,12 @@ export const Header: React.FC<MapPropsType> = (props) => {
                         </div>
                         <Button onClick={logoutCallback}>Log out</Button>
                     </Col>
-                    : <Col span={4}>
+                    : <Col span={4} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-evenly'}}>
                         <Button>
                             <Link to={'/login'}>Login</Link>
+                        </Button>
+                        <Button>
+                            <Link to={'https://social-network.samuraijs.com/signUp'}>Register</Link>
                         </Button>
                     </Col>}
             </Row>
