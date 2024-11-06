@@ -75,7 +75,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
                 <Menu.Item key="3" icon={<TeamOutlined />}><Link to="/Users">Users</Link></Menu.Item>
                 <Menu.Item icon={<NotificationOutlined />} key="4"><Link to="/chat">Chat</Link></Menu.Item>
                 <Menu.Item key="5" icon={<CustomerServiceOutlined />}><Link to="/music">Music</Link></Menu.Item>
-                <Menu.Item key="6" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item>
+                {/* <Menu.Item key="6" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item> */}
               </Menu>
             </Sider>
             <Content style={{ padding: '0 24px', minHeight: 280 }}>

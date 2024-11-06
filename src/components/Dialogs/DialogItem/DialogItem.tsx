@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 type PropsType = {
     id: number
     name: string
+    img: string
 }
 
 const DialogItem:React.FC<PropsType> = (props) => {

@@ -19,7 +19,7 @@ const MyPosts: React.FC<MapPropsType & DispatchPropsType> = props => {
     let postsElements =
         [...props.posts]
             .reverse()
-            .map(p => <Post key={p.id} message={p.message} likesCount={p.likesCounts}/>);
+            .map(p => <Post key={p.id} message={p.message} likesCounts={p.likesCounts}/>);
 
     let onAddPost = (values: AddPostFormValuesType) => {
         props.addPost(values.newPostText);
