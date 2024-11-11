@@ -5,6 +5,7 @@ import User from "./User.tsx";
 import { FilterType, requestUsers, follow as followUser, unfollow as unfollowUser } from '../../redux/users-reducer.ts';
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentPage, getFollowingInProgress, getPageSize, getTotalUsersCount, getUsers, getUsersFilter } from "../../redux/users-selectors.ts";
+
 import { UsersSearchForm } from "./UsersSearchForm.tsx";
 
 
@@ -18,6 +19,7 @@ export const Users: React.FC<PropsType> = (props) => {
     const pageSize = useSelector(getPageSize)
     const filter = useSelector(getUsersFilter)
     const followingInProgress = useSelector(getFollowingInProgress)
+    const statusUser = useSelector((state: any) => state.profilePage.status)
 
     const dispatch = useDispatch()
 
@@ -56,7 +58,8 @@ export const Users: React.FC<PropsType> = (props) => {
                         followingInProgress={followingInProgress}
                         key={u.id}
                         unfollow={handleUnfollow}  // Используем `handleUnfollow`
-                        follow={handleFollow}      // Используем `handleFollow`
+                        follow={handleFollow} 
+                        status = {statusUser}     // Используем `handleFollow`
                     />
                 ))}
             </div>

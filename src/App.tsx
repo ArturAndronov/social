@@ -99,28 +99,6 @@ class App extends Component<MapPropsType & DispatchPropsType> {
         </Content>
         {/* <Footer style={{ textAlign: 'center' }}>Social Network ©2024 Created by Artur A.S.</Footer> */}
       </Layout>
-
-
-      // <div className='app-wrapper'>
-      //   <HeaderContainer />
-      //   <Navbar />
-      //   <div className='app-wrapper-content'>
-      //     <Suspense fallback={<div>LOADING....</div>}>
-      //       <Routes>
-      //         <Route path='/profile/:userId' element={<ProfileContainer />} />
-      //         <Route path="/" element={<Navigate to="/profile" />} />
-      //         <Route path='/profile' element={<SuspendedProfile />} />
-      //         <Route path='/users' element={<UsersPage pageTitle='Social'/>} />
-      //         <Route path='/login' element={<Login />} />
-      //         <Route path='/dialogs' element={<SuspendedDialogs />} />
-      //         <Route path='/news' element={<News />} />
-      //         <Route path='/music' element={<Music />} />
-      //         <Route path='/settings' element={<Settings />} />
-      //       </Routes>
-      //     </Suspense>
-      //   </div>
-      // </div>
-
     )
   };
 }

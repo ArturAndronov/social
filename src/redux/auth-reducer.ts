@@ -42,6 +42,11 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
     if (meData.resultCode === ResultCodesEnum.Success) {
         let { id, login, email } = meData.data;
         dispatch(actions.setAuthUserData(id, email, login, true));
+
+        const apiKey = id === 27325
+            ? "a62b3253-f692-4c22-89ff-b39997f0c6dd" 
+            : "80777132-806b-4861-9d3c-87225dd5c41d";
+        localStorage.setItem("api_key", apiKey);
     }
 }
 

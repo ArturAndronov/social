@@ -9,9 +9,10 @@ type PropsType = {
     followingInProgress:Array<number>
     unfollow: (userId: number) => void
     follow: (userId: number) => void
+    status: string
 }
 
-const User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow }) => {
+const User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow, status }) => {
    
    
     return (
@@ -31,7 +32,7 @@ const User: React.FC<PropsType> = ({ user, followingInProgress, unfollow, follow
             <span>
                 <span>
                     <div>{user.name}</div>
-                    <div>{user.status}</div>
+                    <div>{status}</div>
                 </span>
                 <span>
                     <div>{"user.location.city"}</div>
