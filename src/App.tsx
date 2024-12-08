@@ -1,24 +1,18 @@
-import React, { Component, Suspense } from 'react'
-import './App.css'
+import React, { Component, Suspense } from 'react';
+import './App.css';
 import {
   Routes,
   Route,
-  useLocation,
-  useNavigate,
-  useParams,
   Navigate,
-  NavLink,
   Link,
-} from "react-router-dom";
-import './App.css';
+} from 'react-router-dom';
 
-import HeaderContainer from './components/Header/HeaderContainer.tsx';
+import { Header } from './components/Header/Header.tsx';
 import Login from './components/Login/Login.tsx';
 import Music from './components/Music/Music.jsx';
-import Navbar from './components/Navbar/Navbar.tsx';
 import News from './components/News/News.jsx';
 import Settings from './components/Settings/Settings.jsx';
-import { initializeApp } from './redux/app-reducer.ts';
+import { initializeApp, actions as appActions } from './redux/app-reducer.ts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Preloader from './components/common/Preloader/Preloader.tsx';
@@ -26,105 +20,127 @@ import { AppStateType } from './redux/redux-store.ts';
 import { withSuspens } from './hoc/withSuspense.tsx';
 import { UsersPage } from './components/Users/UsersContainer.tsx';
 
-import { TeamOutlined, NotificationOutlined, UserOutlined, SettingOutlined, CustomerServiceOutlined } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu } from 'antd';
-import { Header } from './components/Header/Header.tsx';
-const { Content, Footer, Sider } = Layout;
-const { SubMenu } = Menu
+import {
+  TeamOutlined,
+  NotificationOutlined,
+  UserOutlined,
+  CustomerServiceOutlined,
+} from '@ant-design/icons';
+import { Layout, Menu} from 'antd';
 
-//import DialogsContainer from './components/Dialogs/DialogsContainer';
+const { Content, Sider } = Layout;
+const { SubMenu } = Menu;
+
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer.tsx'));
 const ChatPage = React.lazy(() => import('./pages/chat/ChatPage.tsx'));
 
-type MapPropsType = ReturnType<typeof mapStateToProps>
+type MapPropsType = ReturnType<typeof mapStateToProps>;
 type DispatchPropsType = {
-  initializeApp: () => void
-}
+  initializeApp: () => void;
+  toggleDrawer: () => void;
+  setIsMobile: (isMobile: boolean) => void;
+};
 
-const SuspendedDialogs = withSuspens(DialogsContainer)
-const SuspendedProfile = withSuspens(ProfileContainer)
-const SuspendedChat = withSuspens(ChatPage)
+const SuspendedDialogs = withSuspens(DialogsContainer);
+const SuspendedProfile = withSuspens(ProfileContainer);
+const SuspendedChat = withSuspens(ChatPage);
 
 class App extends Component<MapPropsType & DispatchPropsType> {
 
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('resize', this.handleResize);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    const isMobile = window.innerWidth <= 768;
+    this.props.setIsMobile(isMobile);
+  };
+
+  renderMenu = () => (
+    <Menu
+      mode="inline"
+      style={{ height: '100%' }}
+      onClick={this.props.toggleDrawer} // Закрывает меню при клике на любой пункт
+    >
+      <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
+        <Menu.Item key="1">
+          <Link to="/profile">Profile</Link>
+        </Menu.Item>
+        <Menu.Item key="2">
+          <Link to="/dialogs">Messages</Link>
+        </Menu.Item>
+      </SubMenu>
+      <Menu.Item key="3" icon={<TeamOutlined />}>
+        <Link to="/users">Users</Link>
+      </Menu.Item>
+      <Menu.Item key="4" icon={<NotificationOutlined />}>
+        <Link to="/chat">Chat</Link>
+      </Menu.Item>
+      <Menu.Item key="5" icon={<CustomerServiceOutlined />}>
+        <Link to="/music">Music</Link>
+      </Menu.Item>
+    </Menu>
+  );
+
   render() {
-    if (!this.props.initialized) {
-      return <Preloader />
+    const { initialized, isMobile } = this.props;
+
+    if (!initialized) {
+      return <Preloader />;
     }
+
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        <Header />
-        <Content style={{ padding: '0 50px' , height: '100%'}}>
-          <Layout className="site-layout-background" style={{ padding: '24px 0'}}>
-            <Sider className="site-layout-background" width={200}>
-              <Menu
-                mode="inline"
-                /*  defaultSelectedKeys={['7']}*/
-                /*  defaultOpenKeys={['sub1']}*/
-                style={{ height: '100%' }}
-              >
-                <SubMenu key="sub1" icon={<UserOutlined />} title="My Profile">
-                  <Menu.Item key="1"> <Link to="/profile">Profile</Link></Menu.Item>
-                  <Menu.Item key="2"> <Link to="/dialogs">Messages</Link></Menu.Item>
-                </SubMenu>
-                <Menu.Item key="3" icon={<TeamOutlined />}><Link to="/Users">Users</Link></Menu.Item>
-                <Menu.Item icon={<NotificationOutlined />} key="4"><Link to="/chat">Chat</Link></Menu.Item>
-                <Menu.Item key="5" icon={<CustomerServiceOutlined />}><Link to="/music">Music</Link></Menu.Item>
-                {/* <Menu.Item key="6" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item> */}
-              </Menu>
-            </Sider>
+        <Header isMobile={isMobile}/>
+        <Content style={{ padding: '0 50px', height: '100%' }}>
+          <Layout className="site-layout-background" style={{ padding: '24px 0' }}>
+            {isMobile ? (
+              <>
+              </>
+            ) : (
+              <Sider className="site-layout-background" width={200}>
+                {this.renderMenu()}
+              </Sider>
+            )}
             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-              <Suspense fallback={<div>LOADING....</div>}>
+              <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
-                  <Route path='/profile/:userId' element={<ProfileContainer />} />
+                  <Route path="/profile/:userId" element={<SuspendedProfile />} />
                   <Route path="/" element={<Navigate to="/profile" />} />
-                  <Route path='/profile' element={<SuspendedProfile />} />
-                  <Route path='/users' element={<UsersPage pageTitle='Social' />} />
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/chat' element={<SuspendedChat/>} />
-                  <Route path='/dialogs' element={<SuspendedDialogs />} />
-                  <Route path='/news' element={<News />} />
-                  <Route path='/music' element={<Music />} />
-                  <Route path='/settings' element={<Settings />} />
+                  <Route path="/profile" element={<SuspendedProfile />} />
+                  <Route path="/users" element={<UsersPage pageTitle="Social" />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/chat" element={<SuspendedChat />} />
+                  <Route path="/dialogs" element={<SuspendedDialogs />} />
+                  <Route path="/news" element={<News />} />
+                  <Route path="/music" element={<Music />} />
+                  <Route path="/settings" element={<Settings />} />
                 </Routes>
               </Suspense>
-
             </Content>
           </Layout>
         </Content>
-        {/* <Footer style={{ textAlign: 'center' }}>Social Network ©2024 Created by Artur A.S.</Footer> */}
       </Layout>
-    )
-  };
+    );
+  }
 }
 
 const mapStateToProps = (state: AppStateType) => ({
-  initialized: state.app.initialized
-})
-
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-    return (
-      <Component
-        {...props}
-        router={{ location, navigate, params }}
-      />
-    );
-  }
-
-  return ComponentWithRouterProp;
-}
+  initialized: state.app.initialized,
+  isMobile: state.app.isMobile,
+  drawerVisible: state.app.drawerVisible,
+});
 
 export default compose(
-  withRouter,
-  connect(mapStateToProps, { initializeApp }))(App);
-
-
+  connect(mapStateToProps, { 
+    initializeApp, 
+    toggleDrawer: appActions.toggleDrawer, 
+    setIsMobile: appActions.setIsMobile 
+  })
+)(App);
